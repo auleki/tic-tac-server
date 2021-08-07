@@ -11,6 +11,7 @@ export class GameController {
 
   @OnMessage("update_game")
   public async updateGame(@SocketIO() io: Server, @ConnectedSocket() socket: Socket, @MessageBody() message: any) {
-
+    const gameRoom = this.getSocketRoom(socket)
+    socket.to(gameRoom).emit("on_game_update", message)
   }
 }

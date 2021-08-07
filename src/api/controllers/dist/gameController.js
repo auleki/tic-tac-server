@@ -57,7 +57,10 @@ var GameController = /** @class */ (function () {
     };
     GameController.prototype.updateGame = function (io, socket, message) {
         return __awaiter(this, void 0, void 0, function () {
+            var gameRoom;
             return __generator(this, function (_a) {
+                gameRoom = this.getSocketRoom(socket);
+                socket.to(gameRoom).emit("on_game_update", message);
                 return [2 /*return*/];
             });
         });
