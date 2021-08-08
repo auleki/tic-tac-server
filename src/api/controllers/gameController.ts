@@ -14,4 +14,10 @@ export class GameController {
     const gameRoom = this.getSocketRoom(socket)
     socket.to(gameRoom).emit("on_game_update", message)
   }
+
+  @OnMessage("game_win")
+  public async gameWin(@SocketIO() io: Server, @ConnectedSocket() socket: Socket, @MessageBody() message: any) {
+    const gameRoom = this.getSocketRoom(socket)
+    socket.to(gameRoom).emit("on_game_win", message)
+  }
 }

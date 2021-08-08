@@ -65,10 +65,24 @@ var GameController = /** @class */ (function () {
             });
         });
     };
+    GameController.prototype.gameWin = function (io, socket, message) {
+        return __awaiter(this, void 0, void 0, function () {
+            var gameRoom;
+            return __generator(this, function (_a) {
+                gameRoom = this.getSocketRoom(socket);
+                socket.to(gameRoom).emit("on_game_win", message);
+                return [2 /*return*/];
+            });
+        });
+    };
     __decorate([
         socket_controllers_1.OnMessage("update_game"),
         __param(0, socket_controllers_1.SocketIO()), __param(1, socket_controllers_1.ConnectedSocket()), __param(2, socket_controllers_1.MessageBody())
     ], GameController.prototype, "updateGame");
+    __decorate([
+        socket_controllers_1.OnMessage("game_win"),
+        __param(0, socket_controllers_1.SocketIO()), __param(1, socket_controllers_1.ConnectedSocket()), __param(2, socket_controllers_1.MessageBody())
+    ], GameController.prototype, "gameWin");
     GameController = __decorate([
         socket_controllers_1.SocketController()
     ], GameController);
