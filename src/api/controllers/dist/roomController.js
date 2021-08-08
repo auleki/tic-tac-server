@@ -51,10 +51,11 @@ var RoomController = /** @class */ (function () {
     function RoomController() {
     }
     RoomController.prototype.joinGame = function (io, socket, message) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var connectedSockets, socketRooms;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         console.log("New user joining room says: ", message);
                         connectedSockets = io.sockets.adapter.rooms.get(message.roomId);
@@ -66,9 +67,13 @@ var RoomController = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 1: return [4 /*yield*/, socket.join(message.roomId)];
                     case 2:
-                        _a.sent();
+                        _b.sent();
                         socket.emit("room_joined");
-                        _a.label = 3;
+                        if (((_a = io.sockets.adapter.rooms.get(message.roomId)) === null || _a === void 0 ? void 0 : _a.size) === 2) {
+                            socket.emit("start_game", { start: true, symbol: "x" });
+                            socket.to(message.roomId).emit("start_game", { start: false, symbol: "o" });
+                        }
+                        _b.label = 3;
                     case 3: return [2 /*return*/];
                 }
             });
